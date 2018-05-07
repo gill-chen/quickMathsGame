@@ -1,0 +1,36 @@
+body {
+	background: gray;
+	text-align: center;
+}
+.square {
+	width: 30%;
+	margin: 1.66%;
+	float: left;
+	padding-bottom: 25%;
+	background: white;
+	
+}
+#container {
+	padding-top: 5%;
+	margin: 0 auto;
+	max-width: 50%;
+}
+
+.bigShaq {
+	background: url(http://www.abc.net.au/cm/rimage/9191348-16x9-large.jpg?v=2);
+	background-size: cover;
+	background-position: center;
+}
+
+.happyBigShaq {
+	background: url(http://static4.uk.businessinsider.com/image/5a0c7436dba1f5f51c8b48cb/the-man-behind-viral-phenomenon-big-shaq-discusses-a-tragic-moment-that-led-to-the-pivotal-point-in-his-career.jpg);
+	background-size: cover;
+	background-position: center;
+}
+#message {
+	padding: 10px;
+}
+
+.selected {
+	background-color: blue;
+}
