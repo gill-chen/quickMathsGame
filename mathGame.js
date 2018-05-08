@@ -1,62 +1,71 @@
 
+var choices = 6;
+var options = new Array(6);
+var answerSet;
+var answer;
+
+var modes = document.querySelectorAll(".mode"); 
 var squares = document.querySelectorAll(".square");
 var messageDisplay = document.querySelector("#message");
 var question1 = document.querySelector("#question1");
 var question2 = document.querySelector("#question2");
 var reset = document.getElementById("reset");
-var easyB = document.querySelector("#easyB");
-var hardB = document.querySelector("#hardB");
-//beginning state -starting difficulty hard
-var choices = 6;
-var options = new Array(6);
-createOptions(6);
-hardB.classList.add("selected");
-// pick a random set as the answer 
-var answerSet= generateRandomSet(6);
-var answer = options[answerSet][2];
-question1.textContent = options[answerSet][0];
-question2.textContent = options[answerSet][1];
 
-//creates easy game
-easyB.addEventListener("click", function(){
-	hardB.classList.remove("selected");
-	easyB.classList.add("selected");
-	choices = 3;
-	//creates game 
+//initialize game (difficulty: hard)
+
+init();
+
+function init(){
+	createOptions(choices);
 	createGame(choices);
-	//hides additional squares
-	for (var i = 3; i < squares.length; i++){
-		squares[i].style.display = "none";
-	}
-});
-// creates hard game
-hardB.addEventListener("click", function(){
-	hardB.classList.add("selected");
-	easyB.classList.remove("selected");
-	choices = 6;
-	createGame(choices);
-});
-// makes new game on current level
+	setupModeButtons();
+	setupSquares();
+}
+//sets up reset button 
 reset.addEventListener("click", function(){
 	createGame(choices);
 });
-
-//adding the options to the display squares
-for (var i 	= 0; i < options.length; i++){
-	squares[i].textContent = options[i][2];
-	squares[i].addEventListener("click", function(){
-		var clickedNumber = this.textContent;
-		if (clickedNumber == answer){
-			messageDisplay.textContent = "Correct!";
-			reset.textContent = "Play Again?";
-			changeBackground();
-		}
-		else {
-			if (messageDisplay.textContent != "Correct!")
-			{messageDisplay.textContent = "Try Again";}
-			this.classList.add("bigShaq");
-		}
-	});
+// sets up all easy + hard buttons
+function setupModeButtons() {
+	for (var i = 0; i < modes.length; i++){
+		modes[i].addEventListener("click", function(){
+			modes[0].classList.remove("selected");
+			modes[1].classList.remove("selected");
+			this.classList.add("selected");
+			if (this.textContent === "easy"){
+				choices = 3;
+				for (var i = 3; i < squares.length; i++){
+					squares[i].style.display = "none";
+				}
+			}
+			else if (this.textContent === "hard"){
+				choices = 6;
+				for (var i = 3; i < squares.length; i++){
+					squares[i].style.display = "block";
+				}
+			}
+			createGame(choices);
+		});
+	}
+}
+//adding the answer options to the display squares
+function setupSquares(){
+	for (var i 	= 0; i < options.length; i++){
+		squares[i].textContent = options[i][2];
+		squares[i].addEventListener("click", function(){
+			var clickedNumber = this.textContent;
+			if (clickedNumber == answer){
+				messageDisplay.textContent = "Correct!";
+				reset.textContent = "Play Again?";
+				changeBackground();
+			}
+			else {
+				if (messageDisplay.textContent != "Correct!")
+				{messageDisplay.textContent = "Try Again";}
+				this.classList.add("bigShaq");
+			}
+		});
+	}
 }
 //creates a game depending on easy or hard mode (3 or 6 choices)
 function createGame(choices){
@@ -66,6 +75,7 @@ function createGame(choices){
 	answer = options[answerSet][2];
 	question1.textContent = options[answerSet][0];
 	question2.textContent = options[answerSet][1];
+
 	for (var i 	= 0; i < choices; i++){
 		squares[i].textContent = options[i][2];
 		squares[i].classList.remove("bigShaq");
