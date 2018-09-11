@@ -1,4 +1,4 @@
-# Project Title
+# Simple Math Game
 
 A quick project to practice HTML, CSS and JavaScript
 
